@@ -12,13 +12,12 @@ import (
 )
 
 func main() {
-	dateStr := flag.String("date", "", "Fecha a consultar en formato YYYY-MM-DD (obligatorio)")
+	dateStr := flag.String("date", "", "Fecha a consultar en formato YYYY-MM-DD (por defecto: hoy)")
 	flag.Parse()
 
 	if *dateStr == "" {
-		fmt.Fprintln(os.Stderr, "error: --date es obligatorio (formato YYYY-MM-DD)")
-		flag.Usage()
-		os.Exit(1)
+		today := time.Now().Format("2006-01-02")
+		dateStr = &today
 	}
 
 	date, err := time.Parse("2006-01-02", *dateStr)
